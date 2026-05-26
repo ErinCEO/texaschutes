@@ -102,7 +102,20 @@ export function SiteFooter() {
           <span>
             © {new Date().getFullYear()} {business.legalName}. NFPA-82 compliant chute service.
           </span>
-          <span className="eyebrow">Canyon Lake · Austin · Dallas · Houston · New Orleans</span>
+          <span className="flex items-center gap-3">
+            <span className="eyebrow hidden md:inline">
+              Canyon Lake · Austin · Dallas · Houston · New Orleans
+            </span>
+            <span className="hidden md:inline text-white/20">·</span>
+            <a
+              href="https://automatenexus.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="eyebrow hover:text-white"
+            >
+              Website by <span className="text-[var(--copper)]">AutomateNexus</span>
+            </a>
+          </span>
         </div>
       </div>
     </footer>
