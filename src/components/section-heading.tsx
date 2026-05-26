@@ -1,34 +1,58 @@
 import { FadeUp } from "@/components/motion-primitives";
 
 export function SectionHeading({
+  index,
   eyebrow,
   title,
   description,
   align = "left",
+  tone = "light",
 }: {
-  eyebrow?: string;
-  title: string;
+  index?: string;
+  eyebrow: string;
+  title: string | React.ReactNode;
   description?: string;
   align?: "left" | "center";
+  tone?: "light" | "dark";
 }) {
+  const headingClass =
+    tone === "dark"
+      ? "text-white"
+      : "text-[var(--ink)]";
+  const eyebrowClass =
+    tone === "dark"
+      ? "text-[var(--copper)]"
+      : "text-[var(--ink-soft)]/70";
+  const descriptionClass =
+    tone === "dark" ? "text-white/70" : "text-[var(--ink-soft)]";
+
   return (
     <FadeUp className={align === "center" ? "text-center" : ""}>
-      {eyebrow && (
-        <div
-          className={`inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-white px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-[var(--steel-soft)] ${
-            align === "center" ? "mx-auto" : ""
+      <div
+        className={`flex items-center gap-3 ${
+          align === "center" ? "justify-center" : ""
+        }`}
+      >
+        <span
+          className={`h-px w-10 ${
+            tone === "dark" ? "bg-[var(--copper)]" : "bg-[var(--brand)]"
           }`}
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand)]" />
+        />
+        <span className={`eyebrow ${eyebrowClass}`}>
+          {index ? `(${index}) — ` : ""}
           {eyebrow}
-        </div>
-      )}
-      <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--steel)] max-w-3xl">
+        </span>
+      </div>
+      <h2
+        className={`mt-5 font-display font-semibold tracking-tight text-[clamp(2.25rem,5vw,4.5rem)] leading-[1.02] max-w-4xl ${headingClass} ${
+          align === "center" ? "mx-auto" : ""
+        }`}
+      >
         {title}
       </h2>
       {description && (
         <p
-          className={`mt-4 max-w-2xl text-base sm:text-lg text-[var(--steel-soft)] leading-relaxed ${
+          className={`mt-5 max-w-2xl text-lg leading-relaxed ${descriptionClass} ${
             align === "center" ? "mx-auto" : ""
           }`}
         >

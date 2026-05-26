@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { SectionHeading } from "@/components/section-heading";
+import Image from "next/image";
+import { PageHero } from "@/components/page-hero";
 import { CtaBanner } from "@/components/cta-banner";
 import { FadeUp, StaggerGroup, StaggerItem } from "@/components/motion-primitives";
-import { Factory, ShieldCheck, Wind, Recycle } from "lucide-react";
+import { images } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Products & Brands",
@@ -12,28 +13,28 @@ export const metadata: Metadata = {
 
 const brands = [
   {
-    icon: Factory,
     name: "Midland Chutes",
     location: "Schiller Park, IL · Since 1976",
     body: "The largest chute manufacturer in the United States, serving all 50 states and shipping internationally. Texas Chutes is an authorized installer.",
+    img: images.productMidland,
   },
   {
-    icon: Recycle,
     name: "Century Chutes",
     location: "USA-manufactured",
     body: "Premium trash, linen, and recycling chute systems engineered for the multifamily and hospitality markets.",
+    img: images.productCentury,
   },
   {
-    icon: ShieldCheck,
     name: "Precision Machinery Systems",
     location: "York, PA · Since 1994",
     body: "Complete in-house fabrication, assembly, paint, and testing for the International Dynetics line of compactors.",
+    img: images.productPrecision,
   },
   {
-    icon: Wind,
     name: "Midland Automatic Odor Control",
     location: "Industrial-grade aerosol systems",
     body: "Covers spaces up to 2,000 sq ft. Each five-gallon refill renews and extends the system warranty — effectively a lifetime program.",
+    img: images.productOdor,
   },
 ];
 
@@ -49,37 +50,37 @@ const lineup = [
 export default function ProductsPage() {
   return (
     <>
-      <section className="px-4 pt-16 pb-12 bg-white border-b border-[var(--line)]">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="Brands & equipment"
-            title="The American-made manufacturers we stand behind."
-            description="We only install equipment we'd put in our own building. Every brand below is engineered, fabricated, and supported here in the United States."
-          />
-        </div>
-      </section>
+      <PageHero
+        index="04"
+        eyebrow="Brands & equipment"
+        title="The American-made manufacturers we stand behind."
+        intro="We only install equipment we'd put in our own building. Every brand below is engineered, fabricated, and supported here in the United States."
+        bg={images.productMidland}
+      />
 
-      <section className="px-4 py-16">
-        <div className="mx-auto max-w-7xl">
-          <StaggerGroup className="grid gap-5 sm:grid-cols-2">
-            {brands.map(({ icon: Icon, name, location, body }) => (
-              <StaggerItem
-                key={name}
-                className="rounded-2xl border border-[var(--line)] bg-white p-6"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 rounded-xl bg-[var(--brand)]/10 text-[var(--brand)] grid place-items-center shrink-0">
-                    <Icon className="h-6 w-6" />
+      <section className="bg-[var(--paper)] py-24 px-6">
+        <div className="mx-auto max-w-[1400px]">
+          <StaggerGroup className="grid gap-12 sm:grid-cols-2">
+            {brands.map((b) => (
+              <StaggerItem key={b.name}>
+                <div className="group">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[var(--ink)]">
+                    <Image
+                      src={b.img}
+                      alt={b.name}
+                      fill
+                      sizes="(min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105 opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/75 via-transparent to-transparent" />
                   </div>
-                  <div>
-                    <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-[var(--steel)]">
-                      {name}
+                  <div className="mt-6">
+                    <div className="eyebrow text-[var(--ink-soft)]/60">{b.location}</div>
+                    <h3 className="mt-2 font-display text-3xl font-semibold tracking-tight">
+                      {b.name}
                     </h3>
-                    <div className="text-xs uppercase tracking-[0.14em] text-[var(--steel-soft)] mt-0.5">
-                      {location}
-                    </div>
-                    <p className="mt-3 text-sm text-[var(--steel-soft)] leading-relaxed">
-                      {body}
+                    <p className="mt-3 text-[var(--ink-soft)] leading-relaxed max-w-md">
+                      {b.body}
                     </p>
                   </div>
                 </div>
@@ -89,38 +90,36 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="px-4 py-16 bg-white border-y border-[var(--line)]">
-        <div className="mx-auto max-w-7xl">
+      <section className="bg-[var(--paper-deep)] py-24 px-6">
+        <div className="mx-auto max-w-[1400px]">
           <FadeUp>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-bold tracking-tight text-[var(--steel)]">
-              Lineup at a glance
+            <div className="eyebrow text-[var(--ink-soft)]/60">
+              <span className="divider-tick" />
+              Equipment lineup
+            </div>
+            <h2 className="mt-5 font-display text-[clamp(2rem,4vw,3.5rem)] font-semibold tracking-tight leading-[1.05]">
+              Cut sheets and brochures on request.
             </h2>
-            <p className="mt-3 text-[var(--steel-soft)] max-w-2xl">
-              Spec sheets and brochures available on request — call us and we&apos;ll send
-              the right cut sheet for your project.
-            </p>
           </FadeUp>
-          <div className="mt-8 overflow-hidden rounded-2xl border border-[var(--line)]">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-[var(--sand)] text-[var(--steel-soft)] uppercase tracking-[0.14em] text-xs">
-                <tr>
-                  <th className="px-5 py-3 font-medium">Model</th>
-                  <th className="px-5 py-3 font-medium">Category</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-[var(--line)]">
-                {lineup.map((row) => (
-                  <tr key={row.model}>
-                    <td className="px-5 py-4 font-medium text-[var(--steel)]">
-                      {row.model}
-                    </td>
-                    <td className="px-5 py-4 text-[var(--steel-soft)]">
-                      {row.category}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+          <div className="mt-12">
+            {lineup.map((row, i) => (
+              <FadeUp
+                key={row.model}
+                delay={i * 0.05}
+                className="grid grid-cols-12 items-baseline gap-4 border-t border-[var(--line)] py-6"
+              >
+                <span className="col-span-1 eyebrow text-[var(--ink-soft)]/45">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="col-span-7 font-display text-2xl md:text-3xl font-medium tracking-tight">
+                  {row.model}
+                </span>
+                <span className="col-span-4 text-right text-sm text-[var(--ink-soft)]">
+                  {row.category}
+                </span>
+              </FadeUp>
+            ))}
           </div>
         </div>
       </section>

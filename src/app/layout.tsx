@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Bricolage_Grotesque } from "next/font/google";
+import { Inter, Bricolage_Grotesque, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -9,6 +9,12 @@ import { business } from "@/lib/business";
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const display = Bricolage_Grotesque({
   variable: "--font-display",
+  subsets: ["latin"],
+});
+const serif = Instrument_Serif({
+  variable: "--font-serif",
+  weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
 });
 
@@ -50,9 +56,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${display.variable} h-full antialiased`}
+      className={`${inter.variable} ${display.variable} ${serif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[var(--sand)]">
+      <body className="min-h-full flex flex-col bg-[var(--paper)] text-[var(--ink)]">
         <LocalBusinessJsonLd />
         <SiteHeader />
         <main className="flex-1">{children}</main>

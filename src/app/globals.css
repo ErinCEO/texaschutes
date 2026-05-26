@@ -1,27 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0b1220;
-  --brand: #b91c1c;
-  --brand-deep: #7f1d1d;
-  --steel: #1f2937;
-  --steel-soft: #374151;
-  --sand: #f5f4f0;
-  --line: #e5e7eb;
+  --background: #f4efe6;
+  --foreground: #0e0f10;
+  --ink: #0e0f10;
+  --ink-soft: #2d2f33;
+  --paper: #f4efe6;
+  --paper-deep: #ece5d6;
+  --line: #d8d2c4;
+  --brand: #b32320;
+  --brand-deep: #7a1817;
+  --copper: #b8855a;
+  --steel: #0e0f10;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-line: var(--line);
   --color-brand: var(--brand);
   --color-brand-deep: var(--brand-deep);
+  --color-copper: var(--copper);
   --color-steel: var(--steel);
-  --color-steel-soft: var(--steel-soft);
-  --color-sand: var(--sand);
-  --color-line: var(--line);
   --font-sans: var(--font-inter);
   --font-display: var(--font-display);
+  --font-serif: var(--font-serif);
 }
 
 html {
@@ -29,23 +36,73 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-serif {
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  letter-spacing: -0.01em;
 }
 
 .hero-grid {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 56px 56px;
+    linear-gradient(rgba(244, 239, 230, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 239, 230, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .diagonal-stripes {
   background-image: repeating-linear-gradient(
     135deg,
-    rgba(185, 28, 28, 0.85) 0 14px,
-    rgba(11, 18, 32, 0.9) 14px 28px
+    rgba(179, 35, 32, 0.85) 0 14px,
+    rgba(14, 15, 16, 0.92) 14px 28px
   );
 }
+
+.eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 500;
+}
+
+.divider-tick::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  margin-right: 12px;
+  vertical-align: middle;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { SectionHeading } from "@/components/section-heading";
+import Image from "next/image";
+import { PageHero } from "@/components/page-hero";
 import { CtaBanner } from "@/components/cta-banner";
 import { FadeUp, StaggerGroup, StaggerItem } from "@/components/motion-primitives";
-import { CheckCircle2 } from "lucide-react";
+import { images } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Chute Installations",
@@ -14,7 +15,7 @@ const phases = [
   {
     step: "01",
     title: "Spec & coordination",
-    body: "We work from the architect's drawings to size doors, intake floors, and discharge configurations, then coordinate with the GC and MEP trades.",
+    body: "We work from the architect's drawings to size doors, intake floors, and discharge configurations — then coordinate with the GC and MEP trades.",
   },
   {
     step: "02",
@@ -24,7 +25,7 @@ const phases = [
   {
     step: "03",
     title: "Test, commission, hand-off",
-    body: "Every door is tested, fusible links verified, and the system is walked with the owner. You leave with a complete O&M manual.",
+    body: "Every door is tested, fusible links verified, and the system walked with the owner. You leave with a complete O&M manual.",
   },
 ];
 
@@ -42,61 +43,79 @@ const offerings = [
 export default function InstallationsPage() {
   return (
     <>
-      <section className="px-4 pt-16 pb-12 bg-white border-b border-[var(--line)]">
-        <div className="mx-auto max-w-7xl">
-          <SectionHeading
-            eyebrow="New construction"
-            title="Engineered chute systems, installed on schedule."
-            description="We've been the chute trade for general contractors across six states since 2013. Our scope is tight, our crews are clean, and our chutes work on day one."
-          />
+      <PageHero
+        index="02"
+        eyebrow="New construction"
+        title="Engineered chute systems, installed on schedule."
+        intro="We've been the chute trade for general contractors across six states since 2013. Scope is tight, crews are clean, and the chutes work on day one."
+        bg={images.capabilityInstall}
+      />
+
+      <section className="bg-[var(--paper)] py-24 px-6">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="grid lg:grid-cols-3 gap-x-8 gap-y-12">
+            {phases.map((p, i) => (
+              <FadeUp key={p.step} delay={i * 0.08} className="border-t border-[var(--line)] pt-6">
+                <span className="font-display text-7xl font-semibold text-[var(--brand)]/25 leading-none">
+                  {p.step}
+                </span>
+                <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight">
+                  {p.title}
+                </h3>
+                <p className="mt-3 text-[var(--ink-soft)] leading-relaxed max-w-sm">
+                  {p.body}
+                </p>
+              </FadeUp>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="px-4 py-16">
-        <div className="mx-auto max-w-7xl grid lg:grid-cols-3 gap-5">
-          {phases.map((p) => (
-            <FadeUp
-              key={p.step}
-              className="rounded-2xl border border-[var(--line)] bg-white p-6"
-            >
-              <div className="font-[family-name:var(--font-display)] text-5xl font-bold text-[var(--brand)]/30">
-                {p.step}
-              </div>
-              <h3 className="mt-3 font-[family-name:var(--font-display)] text-xl font-bold text-[var(--steel)]">
-                {p.title}
-              </h3>
-              <p className="mt-2 text-sm text-[var(--steel-soft)] leading-relaxed">
-                {p.body}
-              </p>
-            </FadeUp>
-          ))}
-        </div>
-      </section>
-
-      <section className="px-4 py-16 bg-white border-y border-[var(--line)]">
-        <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 items-start">
-          <FadeUp>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl font-bold tracking-tight text-[var(--steel)]">
+      <section className="bg-[var(--paper-deep)] py-24 px-6">
+        <div className="mx-auto max-w-[1400px] grid lg:grid-cols-12 gap-12 items-start">
+          <FadeUp className="lg:col-span-5">
+            <div className="eyebrow text-[var(--ink-soft)]/60">
+              <span className="divider-tick" />
               What we install
+            </div>
+            <h2 className="mt-5 font-display text-[clamp(2rem,4vw,3.5rem)] font-semibold tracking-tight leading-[1.05]">
+              The full vertical-conveyance lineup —{" "}
+              <span className="font-serif italic text-[var(--brand)]">all American-made.</span>
             </h2>
-            <p className="mt-4 text-[var(--steel-soft)] leading-relaxed">
-              We&apos;re an authorized installer for Midland Chutes and Century Chutes,
-              and we partner with Precision Machinery Systems for International
-              Dynetics compactors. Every system we install is built in the United
-              States.
+            <p className="mt-5 text-[var(--ink-soft)] leading-relaxed max-w-md">
+              We&apos;re an authorized installer for Midland Chutes and Century Chutes, and we
+              partner with Precision Machinery for International Dynetics compactors. Every
+              system we install is built in the United States.
             </p>
           </FadeUp>
-          <StaggerGroup className="grid sm:grid-cols-2 gap-3">
-            {offerings.map((o) => (
+
+          <StaggerGroup className="lg:col-span-7 grid sm:grid-cols-2 gap-y-2">
+            {offerings.map((o, i) => (
               <StaggerItem
                 key={o}
-                className="flex items-start gap-3 rounded-xl border border-[var(--line)] bg-[var(--sand)] p-4"
+                className="flex items-baseline gap-4 border-b border-[var(--line)] py-5"
               >
-                <CheckCircle2 className="h-5 w-5 mt-0.5 text-[var(--brand)] shrink-0" />
-                <span className="text-sm text-[var(--steel)] leading-snug">{o}</span>
+                <span className="eyebrow text-[var(--ink-soft)]/45 w-8">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display text-lg md:text-xl font-medium">
+                  {o}
+                </span>
               </StaggerItem>
             ))}
           </StaggerGroup>
+        </div>
+      </section>
+
+      <section className="bg-[var(--ink)] py-2">
+        <div className="relative aspect-[21/9]">
+          <Image
+            src={images.capabilityInstall}
+            alt="Construction site showing vertical chute installation"
+            fill
+            sizes="100vw"
+            className="object-cover opacity-80"
+          />
         </div>
       </section>
 
